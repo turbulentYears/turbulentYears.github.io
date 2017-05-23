@@ -1,0 +1,775 @@
+<!doctype html>
+
+
+
+  
+
+
+<html class="theme-next pisces use-motion" lang="zh-Hans">
+<head>
+  <meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css" />
+
+
+
+
+  
+  
+  
+  
+
+  
+    
+    
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+    
+    
+    <link href="//fonts.googleapis.com/css?family=Lato:300,300italic,400,400italic,700,700italic&subset=latin,latin-ext" rel="stylesheet" type="text/css">
+  
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css" />
+
+<link href="/css/main.css?v=5.1.1" rel="stylesheet" type="text/css" />
+
+
+
+
+
+
+
+
+
+  <link rel="shortcut icon" type="image/x-icon" href="/favicon.ico?v=5.1.1" />
+
+
+
+
+
+
+<meta name="description" content="P2P技术之NAT穿越方案NAT技术虽然在一定程度上解决了IPv4地址枯竭问题，却破坏了端到端的对等通信，主要原因是NAT网关不允许外网主机主动访问内网主机；但是P2P技术却需要通信双方都能够主动发起访问，所以就产生了一些穿越NAT的技术。 反向链接技术反向链接技术应用于一种特殊的P2P场景，在该场景下，通信的双方只有一方位于NAT设备之后。     如上图所示，ClientA位于NAT网关之后，">
+<meta property="og:type" content="article">
+<meta property="og:title" content="P2P技术之NAT穿越方案">
+<meta property="og:url" content="http://yoursite.com/2017/05/22/P2P技术之NAT穿越方案/index.html">
+<meta property="og:site_name" content="Frank&#39;s Blog">
+<meta property="og:description" content="P2P技术之NAT穿越方案NAT技术虽然在一定程度上解决了IPv4地址枯竭问题，却破坏了端到端的对等通信，主要原因是NAT网关不允许外网主机主动访问内网主机；但是P2P技术却需要通信双方都能够主动发起访问，所以就产生了一些穿越NAT的技术。 反向链接技术反向链接技术应用于一种特殊的P2P场景，在该场景下，通信的双方只有一方位于NAT设备之后。     如上图所示，ClientA位于NAT网关之后，">
+<meta property="og:image" content="http://www.52im.net/data/attachment/forum/201610/10/133042i8nux66pj1jbul6p.jpg">
+<meta property="og:image" content="https://www.usenix.org/legacy/event/usenix05/tech/general/full_papers/ford/ford_html/img8.png">
+<meta property="og:image" content="https://www.usenix.org/legacy/event/usenix05/tech/general/full_papers/ford/ford_html/img9.png">
+<meta property="og:image" content="https://www.usenix.org/legacy/event/usenix05/tech/general/full_papers/ford/ford_html/img10.png">
+<meta property="og:updated_time" content="2017-05-23T02:56:36.000Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="P2P技术之NAT穿越方案">
+<meta name="twitter:description" content="P2P技术之NAT穿越方案NAT技术虽然在一定程度上解决了IPv4地址枯竭问题，却破坏了端到端的对等通信，主要原因是NAT网关不允许外网主机主动访问内网主机；但是P2P技术却需要通信双方都能够主动发起访问，所以就产生了一些穿越NAT的技术。 反向链接技术反向链接技术应用于一种特殊的P2P场景，在该场景下，通信的双方只有一方位于NAT设备之后。     如上图所示，ClientA位于NAT网关之后，">
+<meta name="twitter:image" content="http://www.52im.net/data/attachment/forum/201610/10/133042i8nux66pj1jbul6p.jpg">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Pisces',
+    sidebar: {"position":"left","display":"post","offset":12,"offset_float":0,"b2t":false,"scrollpercent":false},
+    fancybox: true,
+    motion: true,
+    duoshuo: {
+      userId: '0',
+      author: '博主'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="http://yoursite.com/2017/05/22/P2P技术之NAT穿越方案/"/>
+
+
+
+
+
+  <title>P2P技术之NAT穿越方案 | Frank's Blog</title>
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail ">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/"  class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">Frank's Blog</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <p class="site-subtitle"></p>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br />
+            
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-categories">
+          <a href="/categories" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-th"></i> <br />
+            
+            分类
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-about">
+          <a href="/about" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-user"></i> <br />
+            
+            关于
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br />
+            
+            归档
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br />
+            
+            标签
+          </a>
+        </li>
+      
+
+      
+    </ul>
+  
+
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2017/05/22/P2P技术之NAT穿越方案/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Frank">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Frank's Blog">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">P2P技术之NAT穿越方案</h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2017-05-22T14:33:41+08:00">
+                2017-05-22
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <h1 id="P2P技术之NAT穿越方案"><a href="#P2P技术之NAT穿越方案" class="headerlink" title="P2P技术之NAT穿越方案"></a>P2P技术之NAT穿越方案</h1><p><em>NAT技术虽然在一定程度上解决了IPv4地址枯竭问题，却破坏了端到端的对等通信，主要原因是NAT网关不允许外网主机主动访问内网主机；但是P2P技术却需要通信双方都能够主动发起访问，所以就产生了一些穿越NAT的技术。</em></p>
+<h2 id="反向链接技术"><a href="#反向链接技术" class="headerlink" title="反向链接技术"></a>反向链接技术</h2><p><em>反向链接技术应用于一种特殊的P2P场景，在该场景下，通信的双方只有一方位于NAT设备之后。</em></p>
+<p><img src="http://www.52im.net/data/attachment/forum/201610/10/133042i8nux66pj1jbul6p.jpg" alt=""></p>
+<p>   如上图所示，ClientA位于NAT网关之后，它通过TCP端口1234连接到服务器的TCP端口1235上，NAT网关为该次连接重新分配了62000的外网端口。ClientB通过TCP端口1234连接到服务器端口1235上。ClientA与ClientB从服务器得知对方的外网地址信息(IP地址：端口号)分别为A：(155.99.25.11:62000)、B：(138.76.29.7:1234)。</p>
+<p>   由于ClientB拥有外网IP地址，所以ClientA要主动发起与ClientB的通信，可以直接通过TCP连接到ClientB。但是如果ClientB尝试通过TCP主动发起对ClientA的P2P通信，则会失败，其原因就是ClientA位于NAT网关之后，虽然ClientB发出的TCP请求可以到达NAT网关的62000端口，但是NAT网关会拒绝这个连接请求。</p>
+<p>   ClientB要想与ClientA通信，不是直接向ClientA直接发起连接请求，而是通过服务器向ClientA转发一个连接请求，ClientA在接收到服务器转发的连接请求后，主动发起一个连接到ClientB的TCP请求。</p>
+<p>   通过以上步骤，就可以在NAT网关设备上建立起关于ClientA与ClientB之间的连接映射表项，使ClientA与ClientB能够正常通信；</p>
+<h2 id="基于UDP协议的P2P打洞技术"><a href="#基于UDP协议的P2P打洞技术" class="headerlink" title="基于UDP协议的P2P打洞技术"></a>基于UDP协议的P2P打洞技术</h2><p><em>UDP打洞技术是通过中间服务器的协助，在各自的NAT网关上建立相应的映射表项，使P2P连接双方发送的报文能够直接穿透对方的NAT网关，从而实现P2P客户端互联。两台位于NAT设备之后的P2P客户端希望在自己的NAT网关上打洞，就需要借助一个协助者<strong>–集中服务器</strong>，并且还需要一种用于打洞的<strong>Session建立机制。</strong></em></p>
+<h3 id="集中服务器"><a href="#集中服务器" class="headerlink" title="集中服务器"></a>集中服务器</h3><p>– </p>
+<p>  集中服务器本质上是一台置于公网上的服务器，建立P2P的双方都可以直接访问到这台服务器，即：位于NAT网关之后的ClientA与ClientB都可以与一台已知的被放置于公网上的集中服务器建立连接，并通过这台集中服务器了解对方的信息并中转各自的信息。</p>
+<p>  集中服务器的另一个重要作用是判断一个客户端是否位于NAT网关之后，其具体方法如下：</p>
+<ul>
+<li>一个客户端在集中服务器上登录的时候，服务器记录下该客户端的两对地址信息(IP地址：UDP端口号)，一对是该客户端与集中服务器进行通信是的自身IP地址与端口号，另一对是集中服务器记录下的由服务器“观察”到的该客户端实际与自己通信所使用的IP地址和端口号；</li>
+<li>我们可以把前一对地址看作是客户端的内网IP地址和端口号，把后一对地址看作是客户端的内网IP地址与端口号经过NAT转换后的外网IP地址与端口号；</li>
+<li>集中服务器可以从客户端的登录消息中获取该客户端的内网相关信息，还可以通过登录消息的IP头和UDP头得到该客户端的外网相关信息；</li>
+<li>如果该客户端不是位于NAT网关之后，那么采用上述方法获得的两对地址信息是完全相同的；</li>
+</ul>
+<h3 id="P2P-Session建立机制"><a href="#P2P-Session建立机制" class="headerlink" title="P2P Session建立机制"></a>P2P Session建立机制</h3><p>– </p>
+<p>  假定ClientA主动发起对ClientB的连接，其Session建立过程如下：</p>
+<ul>
+<li>最初的时候ClientA不知道如何与ClientB建立连接，ClientA借助于集中服务器，向集中服务器发送连接请求消息，请求集中服务器帮助建立与ClientB的UDP连接；</li>
+<li>集中服务器将包含有ClientB外网与内网的地址信息发给ClientA，同时，集中服务器将包含有ClientA外网与内网的地址信息发送给ClientB，这样，ClientA与ClientB就相互知道对方的外网与内网的地址信息；</li>
+<li>当ClientA接收到集中服务器发来的ClientB的外网与内网地址信息后，ClientA开始向ClientB发送UDP数据包，并且ClientA会自动锁定第一个给出响应的ClientB的地址信息；</li>
+<li>当ClientB接收到集中服务器发来的ClientA的外网与内网地址信息后，ClientB开始向ClientA发送UDP数据包，并且ClientB也会自动锁定第一个给出响应的ClientA的地址信息；</li>
+<li>ClientA与ClientB相互发送UDP数据包是异步的，不保证数据包的时序性；</li>
+</ul>
+<h3 id="UDP打洞情景分析"><a href="#UDP打洞情景分析" class="headerlink" title="UDP打洞情景分析"></a>UDP打洞情景分析</h3><p>–</p>
+<p><strong>1.两个客户端位于同一个NAT网关之后（相同内网中）</strong></p>
+<p><img src="https://www.usenix.org/legacy/event/usenix05/tech/general/full_papers/ford/ford_html/img8.png" alt=""></p>
+<ul>
+<li>如上左图（Before Hole Punching）所示，ClientA与ClientB分别与服务器建立UDP连接，ClientA的公网端口被NAT网关映射为62000，ClientB的公网端口被NAT网关映射为62005。</li>
+<li>如上中图（The Hole Punching Process）所示，ClientA向服务器发出连接ClientB的请求，服务器将ClientB的外网与内网地址信息发给ClientA，同时将ClientA的外网与内网地址信息发给ClientB。ClientA与ClientB相互发送UDP数据包；</li>
+<li>ClientA与ClientB相互发往对方公网地址的UDP数据包不一定会被对方收到，能否收到与否取决于当前NAT网关设备是否支持不同端口之间的UDP数据包能否到达</li>
+<li>ClientA与ClientB相互发往对方内网地址的UDP数据包是能够保证一定到达，内网数据不需要路由，传输速度更快；</li>
+<li>在该场景下推荐使用内网地址进行常规P2P通信；</li>
+</ul>
+<p><strong>2.两个客户端位于不同的NAT网关之后（分别属于不同的内网）</strong></p>
+<p><img src="https://www.usenix.org/legacy/event/usenix05/tech/general/full_papers/ford/ford_html/img9.png" alt=""></p>
+<h6 id="阶段A"><a href="#阶段A" class="headerlink" title="阶段A"></a>阶段A</h6><p>–</p>
+<ul>
+<li>ClientA与ClientB经过各自的NAT网关与集中服务器建立UDP连接，ClientA与ClientB的本地端口都为4321，集中服务器的公网端口号为1234；</li>
+<li><p>在向外的会话中ClientA的外网IP被映射为155.99.25.11，外网端口为62000。B的外网IP被映射为138.76.29.7，外网端口为31000；</p>
+<p>  | 客户端 | 内网IP | 内网端口 | 外网IP | 外网端口 |<br>  | ——— | ——— | ——— | ——— | ——— |<br>  | ClientA | 10.0.0.1 | 4321 | 155.99.25.11 | 62000 |<br>  | ClientB | 10.1.1.3 | 4321 | 138.76.29.7 | 31000 |</p>
+</li>
+</ul>
+<h6 id="阶段B"><a href="#阶段B" class="headerlink" title="阶段B"></a>阶段B</h6><p>–</p>
+<ul>
+<li>在ClientA向服务器发送的登录消息中，包含有ClientA的内网地址信息：10.0.0.1:4321；</li>
+<li>服务器会记录ClientA的内网地址信息，同时会把自己观察到的ClientA的外网地址信息：155.99.25.11: 62000记录下来；</li>
+<li>服务器同样会记录ClientB的内网地址信息：    10.1.1.3:4321，同时也会把自己观察到的ClientB的外网地址信息：138.76.29.7:31000记录下来；</li>
+<li>无论ClientA或者ClientB之中任何一方向服务器发起P2P连接请求，服务器都会将对方内网和外网地址发送给对方；</li>
+</ul>
+<h6 id="阶段C"><a href="#阶段C" class="headerlink" title="阶段C"></a>阶段C</h6><p>–</p>
+<ul>
+<li>ClientA与ClientB分属于不同的内网，他们的内网地址在外网中是没有路由的，所以发往对方内网地址的UDP数据包会发送到错误的主机或者不存在的主机上；</li>
+<li>当ClientA的第一个消息发往ClientB的外网地址，该消息途径ClientA的NAT网关，并在该网关上生成一个会话表项，该会话的源地址信息是10.0.0.1:4321，和ClientA与服务器建立连接时候NAT生成的原地址信息一样，但是它的目的地址是ClientB的外网地址；</li>
+<li>在ClientA的NAT网关支持保留ClientA的内网地址信息的情况下，所有来自ClientA的源地址信息为：10.0.0.1:4321的数据包都沿用ClientA与集中服务器事先建立起来的会话，这些数据包的外网地址信息均被映射为：155.99.25.11:62000；</li>
+</ul>
+<p>ClientA向ClientB的外网地址发送消息的过程就是<strong>打洞</strong>的过程，从ClientA的内网角度来看应该是从(10.0.0.1:4321)发往(138.76.29.7:31000)，从ClientA在其NAT网关建立的会话角度来看，是从(155.99.25.11:62000)发往(138.76.29.7:31000)。如果ClientA发给ClientB的外网地址的消息在ClientB发给ClientA外网地址的消息之前到达ClientB的NAT网关，ClientB的NAT网关会认为ClientA发来的消息是未经过授权的外网消息，从而丢球该数据包；</p>
+<p>ClientB发往ClientA的消息也会在ClientB的NAT网关建立一个(10.1.1.3:4321，155.99.25.11:62000)的会话表项，通常也会沿用B与集中服务器连接时建立的会话，只是该会话现在不仅接受由服务器发给B的消息，还可以接受从A的NAT设备(155.99.25.11:62000)发来的消息；</p>
+<p>一旦A与B都向对方的NAT设备在外网上的地址发送了数据包，就打开了A与B之间的“洞”，A与B向对方的外网地址发送数据，等效为向对方的客户端直接发送UDP数据包了。一旦应用程序确认已经可以通过往对方的外网地址发送数据包的方式让数据包到达NAT后面的目的应用程序，程序会自动停止继续发送用于“打洞”的数据包，转而开始真正的P2P数据传输。</p>
+<p><strong>3.两个客户端位于多层NAT网关之后（分属于不同的内网）</strong></p>
+<p><img src="https://www.usenix.org/legacy/event/usenix05/tech/general/full_papers/ford/ford_html/img10.png" alt=""></p>
+<h6 id="结构说明"><a href="#结构说明" class="headerlink" title="结构说明"></a>结构说明</h6><p>–</p>
+<ul>
+<li>假定NAT C是由ISP提供的NAT网关设备，NAT C提供一种服务，该服务将多个用户节点映射到有限的公网IP地址上；</li>
+<li>NAT A作为NAT C的内网节点，这时NAT A会将类似ClientA所代表的用户内部网络接入到NAT C的内网，这样，用户的内部网络就可以经由NAT C访问公网了（NAT B同理）；</li>
+<li>在这种拓扑结构中，只有服务器与NAT C是真正拥有公网可路由IP地址的设备，而NAT A与NAT B所使用的公网IP地址，实际上是有ISP服务提供商设定的内网地址（这种由ISP提供商提供的内网地址称之为<strong>伪公网地址</strong>）；</li>
+<li>NAT A与NAT B同样可以作为其他NAT设备的外网接入点，以此类推，实际的客户端主机就可以放到多层NAT设备之后；</li>
+<li>ClientA或者ClientB向服务器S发起连接的时候，就会依次在NAT A或者NAT B上建立向外的Session，而NAT A、NAT B要联入公网的时候，会在NAT C上建立向外的Session；</li>
+</ul>
+<h6 id="打洞过程"><a href="#打洞过程" class="headerlink" title="打洞过程"></a>打洞过程</h6><p>–</p>
+<ul>
+<li>NAT A在与服务器S连接的时候在NAT C上建立的公网地址映射为：155.99.25.11:62000，并在服务器S上进行了记录；</li>
+<li>NAT B在与服务器S连接的时候在NAT C上建立的公网地址映射为：155.99.25.11:62005，并在服务器S上进行了记录；</li>
+<li>假定ClientA和ClientB希望通过UDP<strong>打洞</strong>完成彼此之间的P2P直连；<ul>
+<li>最优化的路由策略是ClientA向ClientB的<strong>伪公网</strong>IP地址上发送数据包（即：ClientA向ISP服务提供商指定的内网IP，NAT B的<strong>伪公网</strong>地址(10.0.1.2:55000)发送数据包）；</li>
+<li>ClientA与ClientB是无法通过服务器知道<strong>伪公网</strong>的IP地址；</li>
+<li>即使通过某些手段可以知道<strong>伪公网</strong>地址，依然不推荐采用这种<strong>最优化</strong>的打洞方式（因为这些<strong>伪公网</strong>地址有一定几率与客户端主机所在的内网地址重复，这样会导致打洞数据无法到达指定客户端）；</li>
+</ul>
+</li>
+<li>客户端只能使用服务器S观察到的ClientA与ClientB的公网地址进行<strong>打洞</strong>；</li>
+<li>用于<strong>打洞</strong>的数据包将由NAT C进行转发；</li>
+<li>ClientA向ClientB的公网地址（155.99.25.11:62005）发送UDP数据包；<ul>
+<li>NAT A首先把数据包的源地址由ClientA的内网地址（10.0.0.1:4321）转换为<strong>伪公网</strong>地址（10.0.1.1:45000）；</li>
+<li>数据包到达NAT C的时候，如果NAT C可以识别出该数据包的目的公网地址；NAT C会把该数据包的源地址修改为（155.99.25.11:62000），目的地址改为（10.0.1.2:55000，即NAT B的<strong>伪公网</strong>地址）；</li>
+<li>NAT B最终会将受到的数据包发往ClientB；</li>
+</ul>
+</li>
+</ul>
+
+      
+    </div>
+
+    <div>
+      
+        
+
+      
+    </div>
+
+    <div>
+      
+        
+
+      
+    </div>
+
+    <div>
+      
+        
+
+      
+    </div>
+
+    <footer class="post-footer">
+      
+
+      
+        
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2017/05/22/IPv4协议/" rel="next" title="IPv4协议">
+                <i class="fa fa-chevron-left"></i> IPv4协议
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+  <div class="comments" id="comments">
+    
+  </div>
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap" >
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+          <img class="site-author-image" itemprop="image"
+               src="/images/avatar.gif"
+               alt="Frank" />
+          <p class="site-author-name" itemprop="name">Frank</p>
+           
+              <p class="site-description motion-element" itemprop="description"></p>
+          
+        </div>
+        <nav class="site-state motion-element">
+
+          
+            <div class="site-state-item site-state-posts">
+              <a href="/archives">
+                <span class="site-state-item-count">6</span>
+                <span class="site-state-item-name">日志</span>
+              </a>
+            </div>
+          
+
+          
+
+          
+
+        </nav>
+
+        
+
+        <div class="links-of-author motion-element">
+          
+        </div>
+
+        
+        
+
+        
+        
+
+        
+
+
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#P2P技术之NAT穿越方案"><span class="nav-number">1.</span> <span class="nav-text">P2P技术之NAT穿越方案</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#反向链接技术"><span class="nav-number">1.1.</span> <span class="nav-text">反向链接技术</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#基于UDP协议的P2P打洞技术"><span class="nav-number">1.2.</span> <span class="nav-text">基于UDP协议的P2P打洞技术</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#集中服务器"><span class="nav-number">1.2.1.</span> <span class="nav-text">集中服务器</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#P2P-Session建立机制"><span class="nav-number">1.2.2.</span> <span class="nav-text">P2P Session建立机制</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#UDP打洞情景分析"><span class="nav-number">1.2.3.</span> <span class="nav-text">UDP打洞情景分析</span></a><ol class="nav-child"><li class="nav-item nav-level-6"><a class="nav-link" href="#阶段A"><span class="nav-number">1.2.3.0.0.1.</span> <span class="nav-text">阶段A</span></a></li><li class="nav-item nav-level-6"><a class="nav-link" href="#阶段B"><span class="nav-number">1.2.3.0.0.2.</span> <span class="nav-text">阶段B</span></a></li><li class="nav-item nav-level-6"><a class="nav-link" href="#阶段C"><span class="nav-number">1.2.3.0.0.3.</span> <span class="nav-text">阶段C</span></a></li><li class="nav-item nav-level-6"><a class="nav-link" href="#结构说明"><span class="nav-number">1.2.3.0.0.4.</span> <span class="nav-text">结构说明</span></a></li><li class="nav-item nav-level-6"><a class="nav-link" href="#打洞过程"><span class="nav-number">1.2.3.0.0.5.</span> <span class="nav-text">打洞过程</span></a></li></ol></li></ol></li></ol></li></ol></li></ol></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright" >
+  
+  &copy; 
+  <span itemprop="copyrightYear">2017</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Frank</span>
+</div>
+
+
+<div class="powered-by">
+  由 <a class="theme-link" href="https://hexo.io">Hexo</a> 强力驱动
+</div>
+
+<div class="theme-info">
+  主题 -
+  <a class="theme-link" href="https://github.com/iissnan/hexo-theme-next">
+    NexT.Pisces
+  </a>
+</div>
+
+
+        
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+
+  
+  <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+
+  
+  <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+
+  
+  <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.1"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.1"></script>
+
+
+
+  
+  
+
+
+  <script type="text/javascript" src="/js/src/affix.js?v=5.1.1"></script>
+
+  <script type="text/javascript" src="/js/src/schemes/pisces.js?v=5.1.1"></script>
+
+
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.1"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.1"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.1"></script>
+
+
+
+  
+
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+  
+
+  
+
+  
+
+  
+
+</body>
+</html>

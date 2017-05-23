@@ -88,21 +88,16 @@
 
 
 
-<meta name="description" content="滑动窗口(Sliding Window) 滑动窗口是什么？  滑动窗口是一种技术(或者一种设计)，它被用来做网络流量控制的。   滑动窗口在TCP协议中的实现方式  在TCP协议头中有一个字段Window Size，该字段是接收端将自己缓冲区还可以接收数据大小通知发送端；发送端根据该数值来判断接收端的处理能力，并调整发送数据包大小，使接收端有足够的能力来处理接收到的数据包；    发送端滑动窗口滑">
+<meta name="description" content="网络地址转换(NAT)​网络地址转换(Network Address Translation, NAT)，是一种在数据包通过路由器或者防火墙等NAT网关时，重写IP协议头中的Source IP Address或者Destination IP Address的技术。这种技术的使用场景为：多台主机只能通过一个公网IP来访问Internet Network。 内部专用网络  在IPV4的地址空间中，有三">
 <meta property="og:type" content="article">
-<meta property="og:title" content="TCP滑动窗口">
-<meta property="og:url" content="http://yoursite.com/2017/05/11/TCP滑动窗口/index.html">
+<meta property="og:title" content="网络地址转换">
+<meta property="og:url" content="http://yoursite.com/2017/05/18/NAT-网络地址转换/index.html">
 <meta property="og:site_name" content="Frank&#39;s Blog">
-<meta property="og:description" content="滑动窗口(Sliding Window) 滑动窗口是什么？  滑动窗口是一种技术(或者一种设计)，它被用来做网络流量控制的。   滑动窗口在TCP协议中的实现方式  在TCP协议头中有一个字段Window Size，该字段是接收端将自己缓冲区还可以接收数据大小通知发送端；发送端根据该数值来判断接收端的处理能力，并调整发送数据包大小，使接收端有足够的能力来处理接收到的数据包；    发送端滑动窗口滑">
-<meta property="og:image" content="http://www.tcpipguide.com/free/diagrams/tcpswwindows.png">
-<meta property="og:image" content="http://www.tcpipguide.com/free/diagrams/tcpswaftersendnow.png">
-<meta property="og:image" content="http://www.tcpipguide.com/free/diagrams/tcpswslide.png">
-<meta property="og:image" content="http://www.tcpipguide.com/free/diagrams/tcpswflow.png">
-<meta property="og:updated_time" content="2017-05-19T04:05:49.000Z">
+<meta property="og:description" content="网络地址转换(NAT)​网络地址转换(Network Address Translation, NAT)，是一种在数据包通过路由器或者防火墙等NAT网关时，重写IP协议头中的Source IP Address或者Destination IP Address的技术。这种技术的使用场景为：多台主机只能通过一个公网IP来访问Internet Network。 内部专用网络  在IPV4的地址空间中，有三">
+<meta property="og:updated_time" content="2017-05-23T02:56:09.000Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="TCP滑动窗口">
-<meta name="twitter:description" content="滑动窗口(Sliding Window) 滑动窗口是什么？  滑动窗口是一种技术(或者一种设计)，它被用来做网络流量控制的。   滑动窗口在TCP协议中的实现方式  在TCP协议头中有一个字段Window Size，该字段是接收端将自己缓冲区还可以接收数据大小通知发送端；发送端根据该数值来判断接收端的处理能力，并调整发送数据包大小，使接收端有足够的能力来处理接收到的数据包；    发送端滑动窗口滑">
-<meta name="twitter:image" content="http://www.tcpipguide.com/free/diagrams/tcpswwindows.png">
+<meta name="twitter:title" content="网络地址转换">
+<meta name="twitter:description" content="网络地址转换(NAT)​网络地址转换(Network Address Translation, NAT)，是一种在数据包通过路由器或者防火墙等NAT网关时，重写IP协议头中的Source IP Address或者Destination IP Address的技术。这种技术的使用场景为：多台主机只能通过一个公网IP来访问Internet Network。 内部专用网络  在IPV4的地址空间中，有三">
 
 
 
@@ -130,13 +125,13 @@
 
 
 
-  <link rel="canonical" href="http://yoursite.com/2017/05/11/TCP滑动窗口/"/>
+  <link rel="canonical" href="http://yoursite.com/2017/05/18/NAT-网络地址转换/"/>
 
 
 
 
 
-  <title>TCP滑动窗口 | Frank's Blog</title>
+  <title>网络地址转换 | Frank's Blog</title>
 </head>
 
 <body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
@@ -275,7 +270,7 @@
   
 
   <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2017/05/11/TCP滑动窗口/">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2017/05/18/NAT-网络地址转换/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="Frank">
@@ -292,7 +287,7 @@
 
         
         
-          <h1 class="post-title" itemprop="name headline">TCP滑动窗口</h1>
+          <h1 class="post-title" itemprop="name headline">网络地址转换</h1>
         
 
         <div class="post-meta">
@@ -304,8 +299,8 @@
               
                 <span class="post-meta-item-text">发表于</span>
               
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2017-05-11T10:18:06+08:00">
-                2017-05-11
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2017-05-18T17:49:07+08:00">
+                2017-05-18
               </time>
             
 
@@ -339,45 +334,74 @@
       
 
       
-        <h2 id="滑动窗口-Sliding-Window"><a href="#滑动窗口-Sliding-Window" class="headerlink" title="滑动窗口(Sliding Window)"></a>滑动窗口(Sliding Window)</h2><ul>
-<li><p>滑动窗口是什么？</p>
+        <h2 id="网络地址转换-NAT"><a href="#网络地址转换-NAT" class="headerlink" title="网络地址转换(NAT)"></a>网络地址转换(NAT)</h2><p>​网络地址转换(Network Address Translation, NAT)，是一种在数据包通过路由器或者防火墙等NAT网关时，重写IP协议头中的Source IP Address或者Destination IP Address的技术。这种技术的使用场景为：多台主机只能通过一个公网IP来访问Internet Network。</p>
+<p><strong>内部专用网络</strong></p>
 <ul>
-<li>滑动窗口是一种技术(或者一种设计)，它被用来做网络流量控制的。</li>
-</ul>
-</li>
-<li><p>滑动窗口在TCP协议中的实现方式</p>
-<ul>
-<li>在TCP协议头中有一个字段Window Size，该字段是接收端将自己缓冲区还可以接收数据大小通知发送端；发送端根据该数值来判断接收端的处理能力，并调整发送数据包大小，使接收端有足够的能力来处理接收到的数据包；</li>
+<li>在IPV4的地址空间中，有三个地址块被保留为专用网络<ul>
+<li>这些地址不能再专用网络之外路由；</li>
+<li>专用网络内的主机不能直接与公共网络通信，必须通过网络地址转换(NAT)才可以做到与公共网络通信；</li>
 </ul>
 </li>
 </ul>
-<h4 id="发送端滑动窗口"><a href="#发送端滑动窗口" class="headerlink" title="发送端滑动窗口"></a>发送端滑动窗口</h4><p><em><strong>滑动前示意图</strong></em></p>
-<p>-<br><img src="http://www.tcpipguide.com/free/diagrams/tcpswwindows.png" alt="发送端滑动窗口示意图"></p>
+<table>
+<thead>
+<tr>
+<th>类别描述</th>
+<th>私有网络</th>
+<th>子网掩码</th>
+<th>地址范围</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>一个A类</td>
+<td>10.0.0.0</td>
+<td>255.0.0.0</td>
+<td>10.0.0.0 - 10.255.255.255</td>
+</tr>
+<tr>
+<td>连续的16个B类</td>
+<td>172.16.0.0 - 172.31.0.0</td>
+<td>255.240.0.0</td>
+<td>172.16.0.0 - 172.31.255.255</td>
+</tr>
+<tr>
+<td>连续的256个C类</td>
+<td>192.168.0.0</td>
+<td>255.255.0.0</td>
+<td>192.168.0.0 - 192.168.255.255</td>
+</tr>
+</tbody>
+</table>
+<p><strong>NAT网关处理数据报文</strong></p>
 <ul>
-<li>Category #1标识发送端已经发送出去的并且已经被接收端确认(收到接收端Ack)的数据;</li>
-<li>Category #2标识发送端已经发送出去的但是没有被接收端确认(没有收到接收端Ack)的数据;</li>
-<li>Category #3标识发送端没有发送出去的并且能够被接收端接收的数据;</li>
-<li>Category #4标识发送端没有发送出去的而且接收端没有缓冲空间接收的数据(也就是说该部分数据不能够被接收端接收处理);</li>
+<li>网络被分为私有网络和公网两个部分，NAT网关设置在私有网络的出口位置，双向流量必须都要经过NAT网关；</li>
+<li>网络访问只能由私有网络一端发起，公网无法主动访问私有网络内的主机；</li>
+<li>NAT网关在两个访问方向上完成两次地址的翻译或转换，在出口方向做源信息替换，在入口方向做目的信息替换；</li>
+<li>NAT网关对通信双方保持透明；</li>
+<li>NAT网关为了实现双向转换或翻译，需要维护一张关联表，把会话信息保留下来；</li>
 </ul>
-<p><em><strong>发送端发送可被接收数据示意图</strong></em></p>
-<p>-<br><img src="http://www.tcpipguide.com/free/diagrams/tcpswaftersendnow.png" alt="发送端滑动窗口示意图"></p>
+<h2 id="NAT类型"><a href="#NAT类型" class="headerlink" title="NAT类型"></a>NAT类型</h2><p><strong>完全圆锥型NAT(Full Cone NAT)</strong></p>
 <ul>
-<li>Category #1标识发送端已经发送出去的并且已经被接收端确认(收到接收端Ack)的数据;</li>
-<li>Category #2标识发送端已经发送出去的但是没有被接收端确认(没有收到接收端Ack)的数据;</li>
-<li>Category #3标识发送端没有发送出去的而且接收端没有缓冲空间接收的数据(也就是说该部分数据不能够被接收端接收);</li>
+<li>一旦一个内部地址(iAddr:port1)映射到外部地址(eAddr:prot2)，所有发自iAddr:port1的包都经由eAddr:port2向外发送；</li>
+<li>任意外部主机都能通过给eAddr:port2给iAddr:port1发送数据包；</li>
 </ul>
-<p><em><strong>滑动后示意图</strong></em></p>
-<p><img src="http://www.tcpipguide.com/free/diagrams/tcpswslide.png" alt="发送端滑动窗口示意图"></p>
-<h4 id="发送端与接收端滑动窗口变化示意图"><a href="#发送端与接收端滑动窗口变化示意图" class="headerlink" title="发送端与接收端滑动窗口变化示意图"></a>发送端与接收端滑动窗口变化示意图</h4><p><img src="http://www.tcpipguide.com/free/diagrams/tcpswflow.png" alt="发送端滑动窗口示意图"></p>
-<p><strong>过程分析</strong></p>
-<ol>
-<li>TCP连接建立后发送端<strong>发送窗口</strong>与接收端的<strong>接收窗口</strong>大小均为360 Bytes，此时可发送数据大小为360 Bytes;</li>
-<li>发送端发出140 Bytes到接收端，此时可发送数据大小变为220 Bytes，但<strong>发送窗口</strong>没有改变;</li>
-<li>接收端收到140 Bytes的数据包后<strong>接收窗口</strong>大小变为260，同时发送Ack给发送端，通知发送端自己还能接收并处理260 Bytes的数据；</li>
-<li>发送端收到Ack数据包后，根据Window Size的数值来改变自己的<strong>发送窗口</strong>大小(变为260 Bytes);</li>
-<li>经过三次数据传递，最终发送端窗口大小变为0，也就是发送端不能再发送数据包</li>
-</ol>
-<p><em><strong>如果接收端太过繁忙不能及时处理接收窗口数据的时候就会出现发送端窗口被关闭(大小变为0)的情况，这时客户端需要每隔一个时间间隔向接收端发送一个查询数据包，来询问接收端的接收窗口大小，接收端通过Ack数据包将Window的大小通知发送端，经过几次(一般为3次)询问后，如果接收端窗口依然为0，TCP一般会发出RST数据包将连接断开。这种技术被称为Zero Window Probe(ZWP)。</strong></em></p>
+<p><strong>受限圆锥型NAT(Address-Restricted Cone NAT)</strong></p>
+<ul>
+<li>一旦一个内部地址(iAddr:port1)映射到外部地址(eAddr:port2)，所有发送自iAddr:port1的数据包都经由eAddr:prot2向外发送；</li>
+<li>任意外部主机(hostAddr:any)都能通过eAddr:port2向iAddr:port1发送数据包，但是数据包能够到达iAddr:prot1的前提是：iAddr:port1之前向hostAddr:any发送过数据包，并且数据包到达了hostAddr:any。”any”是指端口不受限制；</li>
+</ul>
+<p><strong>端口受限圆锥型NAT(Port-Restricted Cone NAT)</strong></p>
+<ul>
+<li>一旦一个内部地址(iAddr:port1)映射到外部地址(eAddr:port2)，所有发自iAddr:port1的数据包都经由eAddr:port2向外发送；</li>
+<li>一个外部主机(hostAddr:port3)能够通过eAddr:port2向iAddr:port1发送数据包，但是数据包能够到达iAddr:port1的前提是：iAddr:port1之前已经向hostAddr:port3发送过数据包，并且数据包到达了hostAddr:port3；</li>
+</ul>
+<p><strong>对称NAT(Symmetric NAT)</strong></p>
+<ul>
+<li>每一个来自相同内部IP与端口，到一个特定目的地址和端口的请求，都将映射到一个独特的外部IP地址和端口；</li>
+<li>同一个内部IP和端口发送到不同的目的地址和端口的数据包，都使用不同的映射；</li>
+<li>只有曾经收到过内部主机数据包的外部主机，才能够把数据包发回；</li>
+</ul>
 
       
     </div>
@@ -414,8 +438,8 @@
         <div class="post-nav">
           <div class="post-nav-next post-nav-item">
             
-              <a href="/2017/05/10/基于Wireshark的TCP协议分析/" rel="next" title="基于Wireshark的TCP协议分析">
-                <i class="fa fa-chevron-left"></i> 基于Wireshark的TCP协议分析
+              <a href="/2017/05/17/基于Wireshark的HTTPS协议分析/" rel="next" title="基于Wireshark的HTTPS协议分析">
+                <i class="fa fa-chevron-left"></i> 基于Wireshark的HTTPS协议分析
               </a>
             
           </div>
@@ -424,8 +448,8 @@
 
           <div class="post-nav-prev post-nav-item">
             
-              <a href="/2017/05/17/基于Wireshark的HTTPS协议分析/" rel="prev" title="基于Wireshark的HTTPS协议分析">
-                基于Wireshark的HTTPS协议分析 <i class="fa fa-chevron-right"></i>
+              <a href="/2017/05/22/IPv4协议/" rel="prev" title="IPv4协议">
+                IPv4协议 <i class="fa fa-chevron-right"></i>
               </a>
             
           </div>
@@ -537,7 +561,7 @@
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#滑动窗口-Sliding-Window"><span class="nav-number">1.</span> <span class="nav-text">滑动窗口(Sliding Window)</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#发送端滑动窗口"><span class="nav-number">1.0.1.</span> <span class="nav-text">发送端滑动窗口</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#发送端与接收端滑动窗口变化示意图"><span class="nav-number">1.0.2.</span> <span class="nav-text">发送端与接收端滑动窗口变化示意图</span></a></li></ol></li></ol></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#网络地址转换-NAT"><span class="nav-number">1.</span> <span class="nav-text">网络地址转换(NAT)</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#NAT类型"><span class="nav-number">2.</span> <span class="nav-text">NAT类型</span></a></li></ol></div>
             
 
           </div>
