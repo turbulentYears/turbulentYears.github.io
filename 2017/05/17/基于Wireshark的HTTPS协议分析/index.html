@@ -98,7 +98,7 @@
 <meta property="og:image" content="https://cattail.me/assets/how-https-works/tcp-ip-model.png">
 <meta property="og:image" content="https://cattail.me/assets/how-https-works/ssl_handshake_rsa.jpg">
 <meta property="og:image" content="https://upload.wikimedia.org/wikipedia/commons/thumb/a/ae/SSL_handshake_with_two_way_authentication_with_certificates.svg/1024px-SSL_handshake_with_two_way_authentication_with_certificates.svg.png">
-<meta property="og:updated_time" content="2017-05-19T04:17:36.000Z">
+<meta property="og:updated_time" content="2017-06-13T00:05:22.000Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="基于Wireshark的HTTPS协议分析">
 <meta name="twitter:description" content="简介HTTPS (Hyper Text Transfer Protocol over Secure Socket Layer)是在TCP协议与HTTP协议之间加入了安全层(SSL/TLS)，该层协议会在传输数据包之前与服务器进行协商加密算法，在数据传输的过程中对数据包进行加密。 HTTPS协议栈图   加密算法根据秘钥类型的不同分为：对称加密与非对称加密  对称加密 对称加密是加密与解密均采用同一">
@@ -355,13 +355,14 @@
 </li>
 </ul>
 <ul>
-<li>分对称加密<ul>
+<li>非对称加密<ul>
 <li>非对称加密是加密与解密采用不同的秘钥，被称为<strong>公钥</strong>与<strong>私钥</strong>，必须要而且配合使用；</li>
 <li>数据发送者使用公钥进行加密，数据接受者只有使用对应的私钥才能进行解密；</li>
 <li>常用算法有：ECC,RSA,DSA等</li>
 </ul>
 </li>
 </ul>
+<p><strong>根据加密结果是否可以被解密分为：可逆加密与不可逆加密</strong></p>
 <ul>
 <li>不可逆加密<ul>
 <li>顾名思义该算法只能单向加密，加密过程不需要使用秘钥，直接由加密算法生成密文；</li>
