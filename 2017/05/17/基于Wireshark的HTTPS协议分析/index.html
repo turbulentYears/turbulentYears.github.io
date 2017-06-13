@@ -88,20 +88,20 @@
 
 
 
-<meta name="description" content="简介HTTPS (Hyper Text Transfer Protocol over Secure Socket Layer)是在TCP协议与HTTP协议之间加入了安全层(SSL/TLS)，该层协议会在传输数据包之前与服务器进行协商加密算法，在数据传输的过程中对数据包进行加密。 HTTPS协议栈图   加密算法根据秘钥类型的不同分为：对称加密与非对称加密  对称加密 对称加密是加密与解密均采用同一">
+<meta name="description" content="简介HTTPS (Hyper Text Transfer Protocol over Secure Socket Layer)是在TCP协议与HTTP协议之间加入了安全层(SSL/TLS)，该层协议会在传输数据包之前与服务器进行协商加密算法，在数据传输的过程中对数据包进行加密。 HTTPS协议栈图   加密算法根据秘钥的对称性分为：对称加密与非对称加密  对称加密 对称加密是加密与解密均采用同一个">
 <meta property="og:type" content="article">
 <meta property="og:title" content="基于Wireshark的HTTPS协议分析">
 <meta property="og:url" content="http://yoursite.com/2017/05/17/基于Wireshark的HTTPS协议分析/index.html">
 <meta property="og:site_name" content="Frank&#39;s Blog">
-<meta property="og:description" content="简介HTTPS (Hyper Text Transfer Protocol over Secure Socket Layer)是在TCP协议与HTTP协议之间加入了安全层(SSL/TLS)，该层协议会在传输数据包之前与服务器进行协商加密算法，在数据传输的过程中对数据包进行加密。 HTTPS协议栈图   加密算法根据秘钥类型的不同分为：对称加密与非对称加密  对称加密 对称加密是加密与解密均采用同一">
+<meta property="og:description" content="简介HTTPS (Hyper Text Transfer Protocol over Secure Socket Layer)是在TCP协议与HTTP协议之间加入了安全层(SSL/TLS)，该层协议会在传输数据包之前与服务器进行协商加密算法，在数据传输的过程中对数据包进行加密。 HTTPS协议栈图   加密算法根据秘钥的对称性分为：对称加密与非对称加密  对称加密 对称加密是加密与解密均采用同一个">
 <meta property="og:image" content="http://www.wisedream.net/res/img/https/http_https.jpg">
 <meta property="og:image" content="https://cattail.me/assets/how-https-works/tcp-ip-model.png">
 <meta property="og:image" content="https://cattail.me/assets/how-https-works/ssl_handshake_rsa.jpg">
 <meta property="og:image" content="https://upload.wikimedia.org/wikipedia/commons/thumb/a/ae/SSL_handshake_with_two_way_authentication_with_certificates.svg/1024px-SSL_handshake_with_two_way_authentication_with_certificates.svg.png">
-<meta property="og:updated_time" content="2017-06-13T00:05:22.000Z">
+<meta property="og:updated_time" content="2017-06-13T00:10:01.000Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="基于Wireshark的HTTPS协议分析">
-<meta name="twitter:description" content="简介HTTPS (Hyper Text Transfer Protocol over Secure Socket Layer)是在TCP协议与HTTP协议之间加入了安全层(SSL/TLS)，该层协议会在传输数据包之前与服务器进行协商加密算法，在数据传输的过程中对数据包进行加密。 HTTPS协议栈图   加密算法根据秘钥类型的不同分为：对称加密与非对称加密  对称加密 对称加密是加密与解密均采用同一">
+<meta name="twitter:description" content="简介HTTPS (Hyper Text Transfer Protocol over Secure Socket Layer)是在TCP协议与HTTP协议之间加入了安全层(SSL/TLS)，该层协议会在传输数据包之前与服务器进行协商加密算法，在数据传输的过程中对数据包进行加密。 HTTPS协议栈图   加密算法根据秘钥的对称性分为：对称加密与非对称加密  对称加密 对称加密是加密与解密均采用同一个">
 <meta name="twitter:image" content="http://www.wisedream.net/res/img/https/http_https.jpg">
 
 
@@ -343,7 +343,7 @@
 <p><em><strong>HTTPS协议栈图</strong></em></p>
 <p><img src="http://www.wisedream.net/res/img/https/http_https.jpg" alt=""></p>
 <p><img src="https://cattail.me/assets/how-https-works/tcp-ip-model.png" alt=""></p>
-<h2 id="加密算法"><a href="#加密算法" class="headerlink" title="加密算法"></a>加密算法</h2><p><strong>根据秘钥类型的不同分为：对称加密与非对称加密</strong></p>
+<h2 id="加密算法"><a href="#加密算法" class="headerlink" title="加密算法"></a>加密算法</h2><p><strong>根据秘钥的对称性分为：对称加密与非对称加密</strong></p>
 <ul>
 <li>对称加密<ul>
 <li>对称加密是加密与解密均采用同一个秘钥，而且通信双方必须都获得该秘钥；</li>
