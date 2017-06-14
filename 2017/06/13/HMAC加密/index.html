@@ -88,21 +88,16 @@
 
 
 
-<meta name="description" content="滑动窗口(Sliding Window) 滑动窗口是什么？  滑动窗口是一种技术(或者一种设计)，它被用来做网络流量控制的。   滑动窗口在TCP协议中的实现方式  在TCP协议头中有一个字段Window Size，该字段是接收端将自己缓冲区还可以接收数据大小通知发送端；发送端根据该数值来判断接收端的处理能力，并调整发送数据包大小，使接收端有足够的能力来处理接收到的数据包；    发送端滑动窗口滑">
+<meta name="description" content="Hash 将任意长度的输入，通过散列算法，变换成固定长度的输出，该输出即为散列值； 散列函数把数据压缩成摘要，如果根据同一个函数产生的两个散列值不同，那么散列值的原始输入也是不同的； 散列函数的输入与输出并不具有唯一的对应关系，如果两个散列值相同，他们的输入值可能相同，也可能是不同的，这种输入值不同但是输出的散列值相同的情况称为【碰撞】； MD5与SHA-1是使用最广泛的Hash算法； MD5输出">
 <meta property="og:type" content="article">
-<meta property="og:title" content="TCP滑动窗口">
-<meta property="og:url" content="http://yoursite.com/2017/05/11/TCP滑动窗口/index.html">
+<meta property="og:title" content="HMAC">
+<meta property="og:url" content="http://yoursite.com/2017/06/13/HMAC加密/index.html">
 <meta property="og:site_name" content="Frank&#39;s Blog">
-<meta property="og:description" content="滑动窗口(Sliding Window) 滑动窗口是什么？  滑动窗口是一种技术(或者一种设计)，它被用来做网络流量控制的。   滑动窗口在TCP协议中的实现方式  在TCP协议头中有一个字段Window Size，该字段是接收端将自己缓冲区还可以接收数据大小通知发送端；发送端根据该数值来判断接收端的处理能力，并调整发送数据包大小，使接收端有足够的能力来处理接收到的数据包；    发送端滑动窗口滑">
-<meta property="og:image" content="http://www.tcpipguide.com/free/diagrams/tcpswwindows.png">
-<meta property="og:image" content="http://www.tcpipguide.com/free/diagrams/tcpswaftersendnow.png">
-<meta property="og:image" content="http://www.tcpipguide.com/free/diagrams/tcpswslide.png">
-<meta property="og:image" content="http://www.tcpipguide.com/free/diagrams/tcpswflow.png">
-<meta property="og:updated_time" content="2017-05-19T04:05:49.000Z">
+<meta property="og:description" content="Hash 将任意长度的输入，通过散列算法，变换成固定长度的输出，该输出即为散列值； 散列函数把数据压缩成摘要，如果根据同一个函数产生的两个散列值不同，那么散列值的原始输入也是不同的； 散列函数的输入与输出并不具有唯一的对应关系，如果两个散列值相同，他们的输入值可能相同，也可能是不同的，这种输入值不同但是输出的散列值相同的情况称为【碰撞】； MD5与SHA-1是使用最广泛的Hash算法； MD5输出">
+<meta property="og:updated_time" content="2017-06-14T00:39:44.000Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="TCP滑动窗口">
-<meta name="twitter:description" content="滑动窗口(Sliding Window) 滑动窗口是什么？  滑动窗口是一种技术(或者一种设计)，它被用来做网络流量控制的。   滑动窗口在TCP协议中的实现方式  在TCP协议头中有一个字段Window Size，该字段是接收端将自己缓冲区还可以接收数据大小通知发送端；发送端根据该数值来判断接收端的处理能力，并调整发送数据包大小，使接收端有足够的能力来处理接收到的数据包；    发送端滑动窗口滑">
-<meta name="twitter:image" content="http://www.tcpipguide.com/free/diagrams/tcpswwindows.png">
+<meta name="twitter:title" content="HMAC">
+<meta name="twitter:description" content="Hash 将任意长度的输入，通过散列算法，变换成固定长度的输出，该输出即为散列值； 散列函数把数据压缩成摘要，如果根据同一个函数产生的两个散列值不同，那么散列值的原始输入也是不同的； 散列函数的输入与输出并不具有唯一的对应关系，如果两个散列值相同，他们的输入值可能相同，也可能是不同的，这种输入值不同但是输出的散列值相同的情况称为【碰撞】； MD5与SHA-1是使用最广泛的Hash算法； MD5输出">
 
 
 
@@ -130,13 +125,13 @@
 
 
 
-  <link rel="canonical" href="http://yoursite.com/2017/05/11/TCP滑动窗口/"/>
+  <link rel="canonical" href="http://yoursite.com/2017/06/13/HMAC加密/"/>
 
 
 
 
 
-  <title>TCP滑动窗口 | Frank's Blog</title>
+  <title>HMAC | Frank's Blog</title>
 </head>
 
 <body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
@@ -275,7 +270,7 @@
   
 
   <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2017/05/11/TCP滑动窗口/">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2017/06/13/HMAC加密/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="Frank">
@@ -292,7 +287,7 @@
 
         
         
-          <h1 class="post-title" itemprop="name headline">TCP滑动窗口</h1>
+          <h1 class="post-title" itemprop="name headline">HMAC</h1>
         
 
         <div class="post-meta">
@@ -304,8 +299,8 @@
               
                 <span class="post-meta-item-text">发表于</span>
               
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2017-05-11T10:18:06+08:00">
-                2017-05-11
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2017-06-13T08:30:36+08:00">
+                2017-06-13
               </time>
             
 
@@ -339,45 +334,36 @@
       
 
       
-        <h2 id="滑动窗口-Sliding-Window"><a href="#滑动窗口-Sliding-Window" class="headerlink" title="滑动窗口(Sliding Window)"></a>滑动窗口(Sliding Window)</h2><ul>
-<li><p>滑动窗口是什么？</p>
-<ul>
-<li>滑动窗口是一种技术(或者一种设计)，它被用来做网络流量控制的。</li>
+        <h2 id="Hash"><a href="#Hash" class="headerlink" title="Hash"></a>Hash</h2><ul>
+<li>将任意长度的输入，通过散列算法，变换成固定长度的输出，该输出即为散列值；</li>
+<li>散列函数把数据压缩成摘要，如果根据同一个函数产生的两个散列值不同，那么散列值的原始输入也是不同的；</li>
+<li>散列函数的输入与输出并不具有唯一的对应关系，如果两个散列值相同，他们的输入值可能相同，也可能是不同的，这种输入值不同但是输出的散列值相同的情况称为<strong>【碰撞】</strong>；</li>
+<li><strong>MD5</strong>与<strong>SHA-1</strong>是使用最广泛的Hash算法；</li>
+<li>MD5输出<strong>128位</strong>的摘要信息；</li>
 </ul>
-</li>
-<li><p>滑动窗口在TCP协议中的实现方式</p>
-<ul>
-<li>在TCP协议头中有一个字段Window Size，该字段是接收端将自己缓冲区还可以接收数据大小通知发送端；发送端根据该数值来判断接收端的处理能力，并调整发送数据包大小，使接收端有足够的能力来处理接收到的数据包；</li>
+<h3 id="HMAC-基于散列函数的消息认证码"><a href="#HMAC-基于散列函数的消息认证码" class="headerlink" title="HMAC(基于散列函数的消息认证码)"></a>HMAC(基于散列函数的消息认证码)</h3><ul>
+<li>HMAC不是散列函数，而是采用了将散列函数(MD5或SHA-1)与<strong>共享秘钥</strong>一起使用的消息身份验证机制；</li>
+<li>计算HMAC需要一个Hash函数(MD5或者SHA-1)和一个秘钥Key；</li>
+<li>用L表示Hash函数输出的字符串长(MD5:L=16, SHA-1:L=20);</li>
+<li>用B表示数据块的长度(MD5与SHA-1的分割数据块长度都为64字节);</li>
+<li>秘钥Key的长度可以小于等于数据块长度B，如果大于数据块长度，可以使用Hash函数对Key进行转换，结果就是一个L长度的Key;</li>
+<li>innerpad = 用0x36重复B次(0x360x360x360x360x360x360x36x36……);</li>
+<li>outterpad = 用0x5C重复B次(0x5C0x5C0x5C0x5C0x5C0x5C0x5C0x5C……);</li>
 </ul>
-</li>
-</ul>
-<h4 id="发送端滑动窗口"><a href="#发送端滑动窗口" class="headerlink" title="发送端滑动窗口"></a>发送端滑动窗口</h4><p><em><strong>滑动前示意图</strong></em></p>
-<p>-<br><img src="http://www.tcpipguide.com/free/diagrams/tcpswwindows.png" alt="发送端滑动窗口示意图"></p>
-<ul>
-<li>Category #1标识发送端已经发送出去的并且已经被接收端确认(收到接收端Ack)的数据;</li>
-<li>Category #2标识发送端已经发送出去的但是没有被接收端确认(没有收到接收端Ack)的数据;</li>
-<li>Category #3标识发送端没有发送出去的并且能够被接收端接收的数据;</li>
-<li>Category #4标识发送端没有发送出去的而且接收端没有缓冲空间接收的数据(也就是说该部分数据不能够被接收端接收处理);</li>
-</ul>
-<p><em><strong>发送端发送可被接收数据示意图</strong></em></p>
-<p>-<br><img src="http://www.tcpipguide.com/free/diagrams/tcpswaftersendnow.png" alt="发送端滑动窗口示意图"></p>
-<ul>
-<li>Category #1标识发送端已经发送出去的并且已经被接收端确认(收到接收端Ack)的数据;</li>
-<li>Category #2标识发送端已经发送出去的但是没有被接收端确认(没有收到接收端Ack)的数据;</li>
-<li>Category #3标识发送端没有发送出去的而且接收端没有缓冲空间接收的数据(也就是说该部分数据不能够被接收端接收);</li>
-</ul>
-<p><em><strong>滑动后示意图</strong></em></p>
-<p><img src="http://www.tcpipguide.com/free/diagrams/tcpswslide.png" alt="发送端滑动窗口示意图"></p>
-<h4 id="发送端与接收端滑动窗口变化示意图"><a href="#发送端与接收端滑动窗口变化示意图" class="headerlink" title="发送端与接收端滑动窗口变化示意图"></a>发送端与接收端滑动窗口变化示意图</h4><p><img src="http://www.tcpipguide.com/free/diagrams/tcpswflow.png" alt="发送端滑动窗口示意图"></p>
-<p><strong>过程分析</strong></p>
-<ol>
-<li>TCP连接建立后发送端<strong>发送窗口</strong>与接收端的<strong>接收窗口</strong>大小均为360 Bytes，此时可发送数据大小为360 Bytes;</li>
-<li>发送端发出140 Bytes到接收端，此时可发送数据大小变为220 Bytes，但<strong>发送窗口</strong>没有改变;</li>
-<li>接收端收到140 Bytes的数据包后<strong>接收窗口</strong>大小变为260，同时发送Ack给发送端，通知发送端自己还能接收并处理260 Bytes的数据；</li>
-<li>发送端收到Ack数据包后，根据Window Size的数值来改变自己的<strong>发送窗口</strong>大小(变为260 Bytes);</li>
-<li>经过三次数据传递，最终发送端窗口大小变为0，也就是发送端不能再发送数据包</li>
+<p><strong>计算字符串str的HMAC：</strong><strong>hash(key ^ outterpad, hash(key ^ innerpad, str))</strong></p>
+<h4 id="HMAC计算过程如下："><a href="#HMAC计算过程如下：" class="headerlink" title="HMAC计算过程如下："></a>HMAC计算过程如下：</h4><ol>
+<li>在秘钥Key后添加0来创建一个长度为B(64字节)的字符串str;</li>
+<li>将上一步生成的字符串str与innerpad做异或运算，输出字符串istr;</li>
+<li>将数据流data附加到第二步输出的字符串istr的末尾；</li>
+<li>用第三步生成的数据流（istr + data）作为Hash函数的输入来做Hash运算；</li>
+<li>将第一步生成的字符串str与outterpad做异或运算，输出字符串ostr;</li>
+<li>再将第四部Hash函数输出的结果附加到第五步输出的结果字符串ostr的末尾（ostr + Hash(istr + data)）；</li>
+<li>将第六步生成的字符串（ostr + Hash(istr + data)）作为Hash函数的输入来做Hash运算，最终输出的结果即为HMAC；</li>
 </ol>
-<p><em><strong>如果接收端太过繁忙不能及时处理接收窗口数据的时候就会出现发送端窗口被关闭(大小变为0)的情况，这时客户端需要每隔一个时间间隔向接收端发送一个查询数据包，来询问接收端的接收窗口大小，接收端通过Ack数据包将Window的大小通知发送端，经过几次(一般为3次)询问后，如果接收端窗口依然为0，TCP一般会发出RST数据包将连接断开。这种技术被称为Zero Window Probe(ZWP)。</strong></em></p>
+<p><strong>注意：如果第一步中，key的长度(klen)如果大于64字节，则先对key进行Hash运算，使其长度klen=16(MD5)或klen=20(SHA-1)</strong></p>
+<h4 id="IOS-Library"><a href="#IOS-Library" class="headerlink" title="IOS Library"></a>IOS Library</h4><p><a href="https://github.com/Daniate/INBSecurityCrypto" target="_blank" rel="external">https://github.com/Daniate/INBSecurityCrypto</a></p>
+<p><a href="https://github.com/ivRodriguezCA/IRCrypto" target="_blank" rel="external">https://github.com/ivRodriguezCA/IRCrypto</a></p>
+<p><a href="https://github.com/Westmiss/UserfulSource/tree/master/CommonCryptor" target="_blank" rel="external">https://github.com/Westmiss/UserfulSource/tree/master/CommonCryptor</a></p>
 
       
     </div>
@@ -414,8 +400,8 @@
         <div class="post-nav">
           <div class="post-nav-next post-nav-item">
             
-              <a href="/2017/05/10/基于Wireshark的TCP协议分析/" rel="next" title="基于Wireshark的TCP协议分析">
-                <i class="fa fa-chevron-left"></i> 基于Wireshark的TCP协议分析
+              <a href="/2017/05/22/P2P技术之NAT穿越方案/" rel="next" title="P2P技术之NAT穿越方案">
+                <i class="fa fa-chevron-left"></i> P2P技术之NAT穿越方案
               </a>
             
           </div>
@@ -423,10 +409,6 @@
           <span class="post-nav-divider"></span>
 
           <div class="post-nav-prev post-nav-item">
-            
-              <a href="/2017/05/17/基于Wireshark的HTTPS协议分析/" rel="prev" title="基于Wireshark的HTTPS协议分析">
-                基于Wireshark的HTTPS协议分析 <i class="fa fa-chevron-right"></i>
-              </a>
             
           </div>
         </div>
@@ -537,7 +519,7 @@
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#滑动窗口-Sliding-Window"><span class="nav-number">1.</span> <span class="nav-text">滑动窗口(Sliding Window)</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#发送端滑动窗口"><span class="nav-number">1.0.1.</span> <span class="nav-text">发送端滑动窗口</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#发送端与接收端滑动窗口变化示意图"><span class="nav-number">1.0.2.</span> <span class="nav-text">发送端与接收端滑动窗口变化示意图</span></a></li></ol></li></ol></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#Hash"><span class="nav-number">1.</span> <span class="nav-text">Hash</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#HMAC-基于散列函数的消息认证码"><span class="nav-number">1.1.</span> <span class="nav-text">HMAC(基于散列函数的消息认证码)</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#HMAC计算过程如下："><span class="nav-number">1.1.1.</span> <span class="nav-text">HMAC计算过程如下：</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#IOS-Library"><span class="nav-number">1.1.2.</span> <span class="nav-text">IOS Library</span></a></li></ol></li></ol></li></ol></div>
             
 
           </div>

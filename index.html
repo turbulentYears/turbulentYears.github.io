@@ -268,6 +268,147 @@
   
 
   <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2017/06/13/HMAC加密/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Frank">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Frank's Blog">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/2017/06/13/HMAC加密/" itemprop="url">HMAC</a></h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2017-06-13T08:30:36+08:00">
+                2017-06-13
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <h2 id="Hash"><a href="#Hash" class="headerlink" title="Hash"></a>Hash</h2><ul>
+<li>将任意长度的输入，通过散列算法，变换成固定长度的输出，该输出即为散列值；</li>
+<li>散列函数把数据压缩成摘要，如果根据同一个函数产生的两个散列值不同，那么散列值的原始输入也是不同的；</li>
+<li>散列函数的输入与输出并不具有唯一的对应关系，如果两个散列值相同，他们的输入值可能相同，也可能是不同的，这种输入值不同但是输出的散列值相同的情况称为<strong>【碰撞】</strong>；</li>
+<li><strong>MD5</strong>与<strong>SHA-1</strong>是使用最广泛的Hash算法；</li>
+<li>MD5输出<strong>128位</strong>的摘要信息；</li>
+</ul>
+<h3 id="HMAC-基于散列函数的消息认证码"><a href="#HMAC-基于散列函数的消息认证码" class="headerlink" title="HMAC(基于散列函数的消息认证码)"></a>HMAC(基于散列函数的消息认证码)</h3><ul>
+<li>HMAC不是散列函数，而是采用了将散列函数(MD5或SHA-1)与<strong>共享秘钥</strong>一起使用的消息身份验证机制；</li>
+<li>计算HMAC需要一个Hash函数(MD5或者SHA-1)和一个秘钥Key；</li>
+<li>用L表示Hash函数输出的字符串长(MD5:L=16, SHA-1:L=20);</li>
+<li>用B表示数据块的长度(MD5与SHA-1的分割数据块长度都为64字节);</li>
+<li>秘钥Key的长度可以小于等于数据块长度B，如果大于数据块长度，可以使用Hash函数对Key进行转换，结果就是一个L长度的Key;</li>
+<li>innerpad = 用0x36重复B次(0x360x360x360x360x360x360x36x36……);</li>
+<li>outterpad = 用0x5C重复B次(0x5C0x5C0x5C0x5C0x5C0x5C0x5C0x5C……);</li>
+</ul>
+<p><strong>计算字符串str的HMAC：</strong><strong>hash(key ^ outterpad, hash(key ^ innerpad, str))</strong></p>
+<h4 id="HMAC计算过程如下："><a href="#HMAC计算过程如下：" class="headerlink" title="HMAC计算过程如下："></a>HMAC计算过程如下：</h4><ol>
+<li>在秘钥Key后添加0来创建一个长度为B(64字节)的字符串str;</li>
+<li>将上一步生成的字符串str与innerpad做异或运算，输出字符串istr;</li>
+<li>将数据流data附加到第二步输出的字符串istr的末尾；</li>
+<li>用第三步生成的数据流（istr + data）作为Hash函数的输入来做Hash运算；</li>
+<li>将第一步生成的字符串str与outterpad做异或运算，输出字符串ostr;</li>
+<li>再将第四部Hash函数输出的结果附加到第五步输出的结果字符串ostr的末尾（ostr + Hash(istr + data)）；</li>
+<li>将第六步生成的字符串（ostr + Hash(istr + data)）作为Hash函数的输入来做Hash运算，最终输出的结果即为HMAC；</li>
+</ol>
+<p><strong>注意：如果第一步中，key的长度(klen)如果大于64字节，则先对key进行Hash运算，使其长度klen=16(MD5)或klen=20(SHA-1)</strong></p>
+<h4 id="IOS-Library"><a href="#IOS-Library" class="headerlink" title="IOS Library"></a>IOS Library</h4><p><a href="https://github.com/Daniate/INBSecurityCrypto" target="_blank" rel="external">https://github.com/Daniate/INBSecurityCrypto</a></p>
+<p><a href="https://github.com/ivRodriguezCA/IRCrypto" target="_blank" rel="external">https://github.com/ivRodriguezCA/IRCrypto</a></p>
+<p><a href="https://github.com/Westmiss/UserfulSource/tree/master/CommonCryptor" target="_blank" rel="external">https://github.com/Westmiss/UserfulSource/tree/master/CommonCryptor</a></p>
+
+          
+        
+      
+    </div>
+
+    <div>
+      
+    </div>
+
+    <div>
+      
+    </div>
+
+    <div>
+      
+    </div>
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
     <link itemprop="mainEntityOfPage" href="http://yoursite.com/2017/05/22/P2P技术之NAT穿越方案/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -1709,7 +1850,7 @@ _TS选项有两个作用：**1.**辅助精确计算RTT，接收端只需要在�
           
             <div class="site-state-item site-state-posts">
               <a href="/archives">
-                <span class="site-state-item-count">6</span>
+                <span class="site-state-item-count">7</span>
                 <span class="site-state-item-name">日志</span>
               </a>
             </div>
